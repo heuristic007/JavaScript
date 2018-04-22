@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <link rel="stylesheet" href="styles_ex3.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Setting HTML content example</title>
+  <script>
+
+    var customer =
+      {
+        name: "Ada Luke",
+        email: "aluke@abc.com",
+        mobile: "16501234567",
+        show: function () {
+          alert("Name: " + this.name + " Email: " + this.email + " Mobile: " +
+            this.mobile);
+        }
+      }
+
+    customer.show()
+    var show_string = "Name: " + customer.name +
+      " Email: " + customer.email +
+      " Mobile: " + customer.mobile;
+    var test = show_string;
+
+    var show_stringj = "JQuery " + show_string;
+
+    function changeText() {
+      document.getElementById('show_result').innerHTML = show_string;
+    }
+
+    function changeTextj() {
+      //document.getElementById('show_resultj').innerHTML = show_stringj;
+      $("#show_resultj").html(show_stringj);
+    }
+
+    //regular JavaScript
+    document.onreadystatechange = () => {
+      if (document.readyState === 'complete') {
+        changeText();
+        //changeTextj();
+      }
+    };
+
+    //jQuery
+    $(document).ready(function () {
+      changeTextj();
+    });
+    
+  </script>
+</head>
+
+<body>
+  <!-- This <input> field is where I'm getting the name from -->
+  <label>Enter your name:
+    <input class="name" type="text" value="World" />
+  </label>
+
+  <!-- Plain Javascript Example -->
+  <h1>Plain Javascript Example</h1>Hello
+  <span class="jsValue">World</span>
+
+  <!-- jQuery Example -->
+  <h1>jQuery Example</h1>Hello
+  <span class="jqValue">World</span>
+
+  <p>This is to display show_result</p>
+  <div class="show_result" id="show_result" onload='changeText()'></div>
+  <div class="show_resultj" id="show_resultj" onload='changeTextj()'></div>
+
+  <input type='button' onclick='changeText()' value='Change Text' />
+
+</body>
+<script>
+  // Plain Javascript Example
+  var $jsName = document.querySelector('.name');
+  var $jsValue = document.querySelector('.jsValue');
+
+  $jsName.addEventListener('input', function (event) {
+    $jsValue.innerHTML = $jsName.value;
+  }, false);
+
+  // JQuery example
+  var $jqName = $('.name');
+  var $jqValue = $('.jqValue');
+
+  $jqName.on('input', function (event) {
+    $jqValue.html($jqName.val());
+  });
+</script>
+
+</html>
